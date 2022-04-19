@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The WebDev Cool Quiz</title>
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <a href="assets/html/highScores.html" class="link">View Highscores</a>
+        <h2 class="timeDisplay">Time: <span class="timeDisplay" id="quizTime">0</span></h2>
+    </header>
+    <main>
+        <!--Main message to be displayed when the user enters the Quiz-->
+        <div class="hiddable mainBoard centered" id="dashboard">
+            <h2 id="greeting">The WebDev Cool Quiz!</h2>
+            <p>
+                This quiz is aimed to test the knowledge gathered thus far on JavaScript, HTML and CSS for any web development student. <br/>
+                You'll have a total of <span id="totalTime"></span> seconds to answer <span id="questionCount"></span> questions, but any wrong answer will result in a <span id="timePenalty"></span> second penalty, so beware! <br/>
+                Good Luck!
+            </p>
+            <button id="startQuiz">Start Quiz</button>
+        </div>
+
+        <!--Questions container-->
+        <div class="hiddable centered" id="questionBoard">
+            <h2 id="question"></h2>
+            <div id="answers"></div>
+        </div>
+
+        <!--Container for exit message-->
+        <div class="hiddable mainBoard centered" id="quizFinish">
+            <h2 id="done">All done!</h2>
+            <p>You scored <span id="score"></span> points!</p>
+        </div>
+
+        <div class="hiddable" id="correct">
+            <h2 class="result">Correct!</h2>
+        </div>
+        <div class="hiddable" id="wrong">
+            <h2 class="result">Wrong!</h2>
+        </div>
+    </main>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Segoe UI, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10pt;
+    margin: 5pt;
+    border: 10pt;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    display: none;
+}
+
+.centered {
+    align-items: center;
+    justify-content: center;
+}
+
+.mainBoard {
+    text-align: left;
+    flex-direction: column;
+}
+
+#dashboard {
+    display: flex;
+}
