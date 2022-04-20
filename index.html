@@ -18,7 +18,7 @@
         <!--Main message to be displayed when the user enters the Quiz-->
         <div class="hiddable mainBoard centered" id="dashboard">
             <h2 id="greeting">The WebDev Cool Quiz!</h2>
-            <p>
+            <p id="instructions">
                 This quiz is aimed to test the knowledge gathered thus far on JavaScript, HTML and CSS for any web development student. <br/>
                 You'll have a total of <span id="totalTime"></span> seconds to answer <span id="questionCount"></span> questions, but any wrong answer will result in a <span id="timePenalty"></span> second penalty, so beware! <br/>
                 Good Luck!
@@ -35,13 +35,21 @@
         <!--Container for exit message-->
         <div class="hiddable mainBoard centered" id="quizFinish">
             <h2 id="done">All done!</h2>
-            <p>You scored <span id="score"></span> points!</p>
+            <p id="scoreText">You scored <span id="score"></span> points!</p>
+            <form id="scoreRegistry">
+                <div id="nameWrapper">
+                    <label for="name">Enter your name: </label>
+                    <input type="text" name="name" id="userName">
+                </div>
+                <input type="submit" id="submitBtn" value="Register Highscore!">
+                <span id="invalidName" class="hiddable">Invalid username</span>
+            </form>
         </div>
 
-        <div class="hiddable" id="correct">
+        <div class="hiddable answerStatus" id="correct">
             <h2 class="result">Correct!</h2>
         </div>
-        <div class="hiddable" id="wrong">
+        <div class="hiddable answerStatus" id="wrong">
             <h2 class="result">Wrong!</h2>
         </div>
     </main>

@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
     font-family: Segoe UI, sans-serif;
+    font-weight: 400;
 }
 
 header {
@@ -11,14 +12,91 @@ header {
     height: 10pt;
     margin: 5pt;
     border: 10pt;
+    font-family: Segoe UI, sans-serif;
+    margin: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 main {
     display: flex;
     flex-direction: column;
+    align-items: left;
 }
 
-div {
+label {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5%;
+    width: 50%;
+}
+
+header h2 {
+    font-size: 20px;
+}
+
+header a {
+    font-size: 20px;
+}
+
+ol {
+    list-style: none;
+    justify-content: left;
+    display: flex;
+    flex-direction: column;
+    float: left;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+p {
+    margin: 20px 20px;
+    font-size: large;
+    word-spacing: 2px;
+    line-height: 25px;
+    font-weight: 400;
+}
+
+li:before {
+    content: counter(section, upper-alpha) " ) ";
+}
+
+li {
+    counter-increment: section;
+}
+
+#invalidName {
+    content: attr(data-value);
+    color: red;
+    position: relative;
+    left: 15px;
+}
+
+button {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 5px 5px;
+    cursor: pointer;
+}
+
+button:hover, #submitBtn:hover {
+    background-color:deepskyblue;
+}
+
+form {
+    margin: 10px 40px;
+}
+
+.hiddable {
     display: none;
 }
 
@@ -30,8 +108,87 @@ div {
 .mainBoard {
     text-align: left;
     flex-direction: column;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-bottom: 0%;
+    margin-right: 10%;
+}
+
+.answerStatus {
+    margin-left: 5%;
+    flex: 1 100%;
+    height: 40px;
 }
 
 #dashboard {
     display: flex;
+    margin-top: 2%;
+}
+
+#questionBoard {
+    padding-top: 2%;
+    padding-left: 10%;
+    padding-bottom: 0%;
+    padding-right: 10%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#greeting {
+    font-size: 50px;
+    margin-bottom: 2%;
+}
+
+label, #instructions, #scoreText {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#question {
+    margin: 5%;
+    margin-left: 0%;
+    margin-bottom: 20px;
+}
+
+#userName {
+    width: 45%;
+    height: 25px;
+}
+
+#wrong, #correct {
+    font-style:italic;
+    border-top: solid 3px lightslategrey;
+    color: lightslategray;
+    margin: 5% 10%;
+}
+
+#scoreRegistry {
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: column;
+}
+
+#nameWrapper {
+    display: flex;
+    align-items: baseline;
+}
+
+#submitBtn {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 5px 5px;
+    cursor: pointer;
+}
+
+div.mainBoard, div#questionBoard {
+    margin-bottom: 2%;
+}
+
+#invalidName {
+    font-size: large;
 }

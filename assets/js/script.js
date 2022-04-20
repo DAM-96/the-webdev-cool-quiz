@@ -4,14 +4,21 @@ let quizTimeTag = document.getElementById("quizTime");
 let questionBoard = document.getElementById("questionBoard");
 let quizFinish = document.getElementById("quizFinish");
 let hiddableElements = document.getElementsByClassName("hiddable");
+let correctMessage = document.getElementById("correct");
+let wrongMessage = document.getElementById("wrong");
+let submitBtn = document.getElementById("submitBtn");
+let userName = document.getElementById("userName");
+let highScores = localStorage.getItem("highScores");
 
-let quizTime = 75;
-let timePenalty = 5;
 let questionCount = 5;
+let timePenalty = 20;
 let quizQuestions = [];
+let curQuestion = 0;
+let questionAnswers = [];
+let quizTime = questionCount*timePenalty;
+
 let timeLapse;
 let score;
-let curQuestion = 0;
 
 let curTime = quizTime;
 quizQuestions.length = questionCount;
@@ -114,6 +121,16 @@ function quizApp() {
     startQuizBtn.addEventListener("click", runQuiz);
 }
 
+function assignTextValues() {
+    let totalTimeTag = document.getElementById("totalTime");
+    let questionCountTag = document.getElementById("questionCount");
+    let timePenaltyTag = document.getElementById("timePenalty");
+
+    totalTimeTag.textContent = quizTime;
+    questionCountTag.textContent = questionCount;
+    timePenaltyTag.textContent = timePenalty;
+}
+
 function runQuiz() {
     console.log("Starting Quiz")
     selectQuestions();
@@ -159,23 +176,104 @@ function hideHiddable() {
     });
 }
 
+function hideElement(htmlElement) {
+    htmlElement.style.display = "none";
+}
+
 function showElement(htmlElement) {
     htmlElement.style.display = "flex";
 }
 
 function updateQuestion() {
-    renderQuestion(curQuestion);
+    // Create the question options array
+    questionAnswers = [...quizQuestions[curQuestion].wrong];
+    questionAnswers.push(quizQuestions[curQuestion].correct)
+    //Shuffle answer positions
+    questionAnswers = questionAnswers.sort(function(a, b){return 0.5 - Math.random()});
+
+    // Render question and options
+    renderQuestion();
+    renderOptions();
+
+    reviewSubmision();
 }
 
-function renderQuestion(questionIndex) {
+function renderQuestion() {
+    // Display Current question in the specified title tag
     questionTitle = document.getElementById("question");
-    questionTitle.textContent = quizQuestions[questionIndex].question;
+    questionTitle.textContent = quizQuestions[curQuestion].question;
     console.log(questionTitle);
 }
 
-function stopTimer() {
-    clearInterval(timeLapse);
-    renderTime();
+function renderOptions() {
+    // Create Ordered list and append it to answers
+    optionsDiv = document.getElementById("answers");
+    const fullList = document.createElement("ol");
+
+    //Create a button for each answer to a question
+    for(let i = 0; i < questionAnswers.length; i++) {
+        const answerListItem = document.createElement("li");
+        const answerBtn = document.createElement("button");
+        answerBtn.classList.add("answer");
+        const answerBtnText = document.createTextNode(`${questionAnswers[i]}`);
+
+        answerBtn.appendChild(answerBtnText);
+        answerListItem.appendChild(answerBtn);
+        fullList.appendChild(answerListItem);
+    }
+    optionsDiv.appendChild(fullList);
+}
+
+function reviewSubmision(){
+    const answerButtons = document.getElementsByClassName("answer");
+    Array.from(answerButtons).forEach(element => {
+        element.addEventListener("click", checkAnswer);
+    })
+}
+
+function checkAnswer(event){
+    let clickedButton = event.target;
+    console.log("Selected answer: " + clickedButton.textContent);
+    hideElement(correctMessage);
+    hideElement(wrongMessage);
+
+    //Evaluate the selected answer
+    if(clickedButton.textContent == quizQuestions[curQuestion].correct) {
+        console.log("Correct!");
+        showElement(correctMessage);
+        setTimeout(function() {
+            correctMessage.style.display = "none";
+        },1000)
+    } else {
+        console.log("Wrong answer!");
+        curTime -= timePenalty; 
+        if(curTime < 0) curTime = 0;
+        renderTime();
+        showElement(wrongMessage)
+        setTimeout(function() {
+            wrongMessage.style.display = "none";
+        },1000)
+    }
+
+    // Clear the options list
+    optionsDiv.innerHTML = "";
+
+    if((curQuestion +1) < quizQuestions.length) {
+        curQuestion++
+        updateQuestion();
+    } else {
+        endQuiz();
+    }
+}
+
+function endQuiz() {
+    console.log("Game Ended!")
+    stopTimer();
+    getScore();
+    console.log(`Your score: ${score}`)
+    hideElement(questionBoard);
+    showElement(quizFinish);
+    submitBtn.addEventListener("click" , registerScore);
 }
 
 function getScore() {
@@ -184,21 +282,42 @@ function getScore() {
     scoreTag.textContent = score;
 }
 
-function assignTextValues() {
-    let totalTimeTag = document.getElementById("totalTime");
-    let questionCountTag = document.getElementById("questionCount");
-    let timePenaltyTag = document.getElementById("timePenalty");
-
-    totalTimeTag.textContent = quizTime;
-    questionCountTag.textContent = questionCount;
-    timePenaltyTag.textContent = timePenalty;
+function stopTimer() {
+    clearInterval(timeLapse);
+    if(curTime < 0) curTime = 0;
+    renderTime();
 }
 
-function endQuiz() {
-    getScore();
-    stopTimer();
-    hideHiddable();
-    showElement(quizFinish);
+function registerScore(event) {
+    let invalidName = document.getElementById("invalidName");
+    let tempHighScores;
+    event.preventDefault();
+
+    if (userName.value != "" && userName.value != null){
+        let submitData = {
+            score: score,
+            name: userName.value
+        };
+    
+        if(highScores != null) {
+            tempHighScores = JSON.parse(highScores);
+        } else {
+            tempHighScores = [];
+        }        
+
+        tempHighScores.push(submitData);
+        hideElement(invalidName);
+
+        console.log(`Score saved for the user ${userName.value}`)
+
+        localStorage.setItem("highScores", JSON.stringify(tempHighScores));
+        console.log("HighScore registered.");
+
+        window.location.href = "assets/html/highScores.html";
+    } else {
+        showElement(invalidName);
+        console.log("Invalid name input");
+    }
 }
 
 quizApp();
