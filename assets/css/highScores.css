@@ -1,0 +1,88 @@
+:root {
+    --tableColor: cornflowerblue;
+    --buttonColor: cornflowerblue;
+    --defaultTextColor: white;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    height: 10pt;
+    margin: 5pt;
+    border: 10pt;
+    font-family: Segoe UI, sans-serif;
+    margin: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+span {
+    font-size: large;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tableCell > * {
+    color: var(--defaultTextColor);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+button {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 5px 5px;
+    cursor: pointer;
+}
+
+li {
+    display: flex;
+    flex: 50%;
+    height: 40px;
+    align-items: center;
+}
+
+button:hover, #submitBtn:hover {
+    background-color:deepskyblue;
+}
+
+.tableCell {
+    background-color: var(--tableColor);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#tableTitle {
+    font-size: x-large;
+    color: var(--defaultTextColor);
+    text-align: center;
+    height: 40px;
+    vertical-align: middle;
+}
+
+#tableWrapper {
+    margin-top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch center;
+}
